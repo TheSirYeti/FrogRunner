@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Run Frog, Run!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body { margin: 0; padding: 0; background: #000; height: 100%; overflow: hidden; }
+    canvas { display: block; margin: auto; background: #000; }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+  {{{ SCRIPT }}}
+  <script>
+<script>
+  var Module = {
+    canvas: document.getElementById('canvas'),
+    preRun: [],
+    postRun: [],
+  };
+  createModule(Module).then((instance) => {
+    // Optionally assign globally if needed elsewhere
+    window.Module = instance;
+  });
+</script>
+
+  </script>
+</body>
+</html>

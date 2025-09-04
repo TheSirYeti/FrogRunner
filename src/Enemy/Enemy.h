@@ -28,7 +28,7 @@ public:
     bool IsActive() const { return active; }
 
     virtual Rectangle GetCollisionRect() const {
-        return { position.x, position.y, (float)frameWidth, (float)frameHeight };
+        return { position.x, position.y, 20, 20};
     }
 };
 

@@ -1,6 +1,7 @@
 ﻿#pragma once
-#include "Enemy.h"
-#include "Player/Player.h"
+#include "../Enemy/Enemy.h"
+#include "../Player/Player.h"
+
 
 const int MAX_ENEMIES = 10;
 

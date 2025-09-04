@@ -18,12 +18,10 @@ enum class GameState
 
 float metersRan = 0.0f;
 
-// --- Function Prototypes ---
 void ShowStartScreen(GameState& state);
 void RunGame(GameState& state, Player& player, EnemyManager& enemyManager, Terrain& terrain);
 void ShowGameOverScreen(GameState& state);
 
-// --- Main ---
 int main()
 {
 	InitWindow(ScreenWidth, ScreenHeight, "Run Frog, Run!");
@@ -35,9 +33,7 @@ int main()
 	EnemyManager enemyManager;
 	Background background;
 	Terrain terrain;
-
-
-	// Load assets once
+	
 	player.LoadSprite("src/Sprites/frog_run.png", 12, 24);
 	enemyManager.Load();
 	background.LoadTile("src/Sprites/background.png", 20);
@@ -78,26 +74,23 @@ int main()
 
 void RunGame(GameState& state, Player& player, EnemyManager& enemyManager, Terrain& terrain)
 {
-	// Input
 	bool holding = IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) || IsKeyDown(KEY_SPACE);
 	player.Jump(holding);
-
-	//Terrain
+	
 	terrain.Update();
 	terrain.Draw();
-
-	// Update
+	
 	player.Update();
 	player.Draw();
 
 	enemyManager.Update();
 	enemyManager.Draw();
 	
-	metersRan += 7.5f * GetFrameTime();  // Adjust 100.0f to control speed
+	metersRan += 7.5f * GetFrameTime(); 
 
 	char buffer[32];
 	sprintf(buffer, "Meters: %.0f m", metersRan);
-	DrawText(buffer, 10, 10, 20, WHITE);
+	DrawText(buffer, 10, 10, 20, DARKBROWN);
 
 	// Check collision
 	if (enemyManager.CheckCollisionWithPlayer(player))

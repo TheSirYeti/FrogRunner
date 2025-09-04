@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Run Frog, Run!</title>
+</head>
+<body>
+    <!-- Canvas element for the game -->
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
+
+<!-- Load the JavaScript first -->
+<script src="runnerrgame.js"></script>
+
+<!-- Then call the entry point -->
+<script type="text/javascript">
+    var Module = {
+        canvas: (function() { return document.getElementById('canvas'); })()
+    };
+    createModule(Module);
+</script>
+</body>
+</html>
