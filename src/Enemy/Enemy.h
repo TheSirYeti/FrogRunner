@@ -31,3 +31,4 @@ public:
         return { position.x, position.y, (float)frameWidth, (float)frameHeight };
     }
 };
+

@@ -34,7 +34,7 @@ int main()
 
 	// Load assets once
 	player.LoadSprite("src/Sprites/frog_run.png", 12, 24);
-	enemyManager.Load("src/Sprites/runner.png", 12, 24);
+	enemyManager.Load();
 	background.LoadTile("src/Sprites/background.png", 20);
 	terrain.LoadTile("src/Sprites/floor_tiles.png", 200);
 	
