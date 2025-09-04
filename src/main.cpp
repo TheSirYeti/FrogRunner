@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "raylib.h"
 #include "Player/Player.h"
 #include "Enemy/EnemyManager.h"
@@ -13,6 +15,8 @@ enum class GameState
 	Playing,
 	GameOver
 };
+
+float metersRan = 0.0f;
 
 // --- Function Prototypes ---
 void ShowStartScreen(GameState& state);
@@ -32,6 +36,7 @@ int main()
 	Background background;
 	Terrain terrain;
 
+
 	// Load assets once
 	player.LoadSprite("src/Sprites/frog_run.png", 12, 24);
 	enemyManager.Load();
@@ -45,16 +50,12 @@ int main()
 
 		background.Update();
 		background.Draw();
-
-		if (state == GameState::StartScreen)
-		{
-			player.Reset();
-			enemyManager.Reset();
-		}
 		
 		switch (state)
 		{
 		case GameState::StartScreen:
+			player.Reset();
+			enemyManager.Reset();
 			ShowStartScreen(state);
 			break;
 
@@ -91,6 +92,12 @@ void RunGame(GameState& state, Player& player, EnemyManager& enemyManager, Terra
 
 	enemyManager.Update();
 	enemyManager.Draw();
+	
+	metersRan += 7.5f * GetFrameTime();  // Adjust 100.0f to control speed
+
+	char buffer[32];
+	sprintf(buffer, "Meters: %.0f m", metersRan);
+	DrawText(buffer, 10, 10, 20, WHITE);
 
 	// Check collision
 	if (enemyManager.CheckCollisionWithPlayer(player))
@@ -102,10 +109,11 @@ void RunGame(GameState& state, Player& player, EnemyManager& enemyManager, Terra
 void ShowStartScreen(GameState& state)
 {
 	const char* title = "Run Frog, Run!";
-	const char* buttonText = "Start Game";
+	const char* buttonText = "Click here or JUMP to Start!";
 
 	int fontSize = 40;
-	int textWidth = MeasureText(buttonText, fontSize);
+	int drawFontSize = 30; // actual font size used for drawing
+	int textWidth = MeasureText(buttonText, drawFontSize);
 
 	Rectangle button = {
 		ScreenWidth / 2.0f - textWidth / 2.0f - 20,
@@ -117,10 +125,24 @@ void ShowStartScreen(GameState& state)
 	bool hover = CheckCollisionPointRec(GetMousePosition(), button);
 
 	DrawText(title, ScreenWidth / 2 - MeasureText(title, fontSize) / 2, 100, fontSize, DARKBROWN);
-	DrawRectangleRec(button, hover ? DARKBROWN : BROWN);
-	DrawText(buttonText, ScreenWidth / 2 - textWidth / 2, 270, fontSize - 10, WHITE);
 
-	if (hover && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) || IsKeyPressed(KEY_ENTER))
+	DrawRectangleRec(button, hover ? DARKBROWN : BROWN);
+	DrawText(buttonText, ScreenWidth / 2 - textWidth / 2, 270, drawFontSize, WHITE);
+
+	const char* instructionText = "Use W / Up Arrow / Space to Jump";
+	int instructionFontSize = 20;
+	int instructionWidth = MeasureText(instructionText, instructionFontSize);
+
+	DrawText(
+		instructionText,
+		ScreenWidth / 2 - instructionWidth / 2,
+		button.y + button.height + 20,  // Position below the button
+		instructionFontSize,
+		DARKBROWN
+	);
+
+
+	if (hover && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_SPACE))
 	{
 		state = GameState::Playing;
 	}
@@ -128,14 +150,21 @@ void ShowStartScreen(GameState& state)
 
 void ShowGameOverScreen(GameState& state)
 {
-	const char* loseText = "You Lost!";
-	const char* restartText = "Press ENTER or Click to Restart";
+	const char* loseText = "Game Over!";
+	const char* restartText = "Press Jump or Click to Restart";
 
 	DrawText(loseText, ScreenWidth / 2 - MeasureText(loseText, 50) / 2, 200, 50, RED);
 	DrawText(restartText, ScreenWidth / 2 - MeasureText(restartText, 20) / 2, 300, 20, DARKGRAY);
 
-	if (IsKeyPressed(KEY_ENTER) || IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+	char buffer[64];
+	sprintf(buffer, "You ran %.0f meters!", metersRan);
+	DrawText(buffer, ScreenWidth / 2 - MeasureText(buffer, 30) / 2, ScreenHeight / 2 - 80, 30, WHITE);
+
+
+	
+	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_SPACE))
 	{
+		metersRan = 0.0f;
 		state = GameState::StartScreen;
 	}
 }
