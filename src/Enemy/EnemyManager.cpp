@@ -85,11 +85,35 @@ bool EnemyManager::CheckCollisionWithPlayer(const Player& player)
 
 void EnemyManager::Reset()
 {
+    // Delete existing enemies
     for (int i = 0; i < MAX_ENEMIES; ++i)
     {
-        enemies[i]->Unload();
+        delete enemies[i];
+        enemies[i] = nullptr;
     }
+
+    // Re-randomize enemy types
+    RebuildEnemies();
 
     spawnTimer = 0.0f;
 }
+
+void EnemyManager::RebuildEnemies()
+{
+    for (int i = 0; i < MAX_ENEMIES; ++i)
+    {
+        if (GetRandomValue(0, 1) == 0)
+        {
+            enemies[i] = new Enemy();
+            enemies[i]->LoadSprite("src/Sprites/runner.png", 12, 24);
+        }
+        else
+        {
+            enemies[i] = new FlyingEnemy();
+            enemies[i]->LoadSprite("src/Sprites/bird.png", 4, 8);
+        }
+    }
+}
+
+
 

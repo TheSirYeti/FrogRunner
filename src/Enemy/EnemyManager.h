@@ -20,5 +20,7 @@ public:
     void Reset();
     Texture2D GetEnemyTexture() { return enemyTexture; }
     bool CheckCollisionWithPlayer(const Player& player);
+    void RebuildEnemies();
+
 
 };
