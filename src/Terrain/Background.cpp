@@ -5,8 +5,8 @@
 Background::Background()
 {
     scrollOffset = 0.0f;
-    scrollSpeed = 30.0f; // slow upward scroll
-    tileSize = 48;       // assuming your tile is 48x48
+    scrollSpeed = 30.0f; 
+    tileSize = 48;      
     screenWidth = GetScreenWidth();
     screenHeight = GetScreenHeight();
 }

@@ -25,10 +25,10 @@ void Terrain::Update()
 
 void Terrain::Draw()
 {
-    DrawTexture(tile, 100, 500, WHITE); // hardcoded position
+    DrawTexture(tile, 100, 500, WHITE); 
     
-    int columns = screenWidth / tileSize + 2; // +2 for buffer
-    int rows = 1;  // ground only
+    int columns = screenWidth / tileSize + 2;
+    int rows = 1; 
 
     for (int i = 0; i < columns; i++)
     {

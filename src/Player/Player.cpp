@@ -88,7 +88,7 @@ void Player::Unload()
 
 void Player::Reset()
 {
-    position = { 100, 400 }; // Adjust this to your desired start position
+    position = { 100, 400 };
     isJumping = false;
     jumpTime = 0;
     currentFrame = 0;

@@ -1,10 +1,7 @@
 ﻿#include "FlyingEnemy.h"
 #include "raylib.h"
 
-FlyingEnemy::FlyingEnemy() : Enemy()
-{
-    // Nothing extra needed here
-}
+FlyingEnemy::FlyingEnemy() : Enemy(){}
 
 void FlyingEnemy::Activate(Vector2 startPos)
 {

@@ -4,13 +4,12 @@
 #include <valarray>
 
 #include "raylib.h"
-#include "FlyingEnemy.h"  // include new type
+#include "FlyingEnemy.h" 
 
 void EnemyManager::Load()
 {
     for (int i = 0; i < MAX_ENEMIES; i++)
     {
-        // 50/50 chance to create a FlyingEnemy or normal one
         if (GetRandomValue(0, 1) == 0)
         {
             enemies[i] = new Enemy();
@@ -32,14 +31,14 @@ void EnemyManager::Update()
     if (spawnTimer <= 0)
     {
         spawnTimer = 99999;
-        // Try to spawn one enemy
+
         for (int i = 0; i < MAX_ENEMIES; i++)
         {
             if (!enemies[i]->IsActive())
             {
                 Vector2 startPos = {
                     (float)GetScreenWidth() + 10,
-                    400 // default position, overridden by FlyingEnemy
+                    400
                 };
                 enemies[i]->Activate(startPos);
                 break;
@@ -85,14 +84,14 @@ bool EnemyManager::CheckCollisionWithPlayer(const Player& player)
 
 void EnemyManager::Reset()
 {
-    // Delete existing enemies
+
     for (int i = 0; i < MAX_ENEMIES; ++i)
     {
         delete enemies[i];
         enemies[i] = nullptr;
     }
 
-    // Re-randomize enemy types
+
     RebuildEnemies();
 
     spawnTimer = 0.0f;

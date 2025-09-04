@@ -4,11 +4,9 @@
 class Player
 {
 private:
-    //Position
     Vector2 position;
     Vector2 originalPosition;
-
-    //Jump Properties
+    
     float jumpForce;
     bool isJumping = false;
     bool jumpHeld = false;
@@ -17,7 +15,6 @@ private:
     float jumpTime;
     float maxJumpTime;
     
-    //Sprite
     Texture2D sprite;
     int frameWidth;
     int frameHeight;

@@ -91,8 +91,7 @@ void RunGame(GameState& state, Player& player, EnemyManager& enemyManager, Terra
 	char buffer[32];
 	sprintf(buffer, "Meters: %.0f m", metersRan);
 	DrawText(buffer, 10, 10, 20, DARKBROWN);
-
-	// Check collision
+	
 	if (enemyManager.CheckCollisionWithPlayer(player))
 	{
 		state = GameState::GameOver;
@@ -105,7 +104,7 @@ void ShowStartScreen(GameState& state)
 	const char* buttonText = "Click here or JUMP to Start!";
 
 	int fontSize = 40;
-	int drawFontSize = 30; // actual font size used for drawing
+	int drawFontSize = 30; 
 	int textWidth = MeasureText(buttonText, drawFontSize);
 
 	Rectangle button = {
@@ -129,7 +128,7 @@ void ShowStartScreen(GameState& state)
 	DrawText(
 		instructionText,
 		ScreenWidth / 2 - instructionWidth / 2,
-		button.y + button.height + 20,  // Position below the button
+		button.y + button.height + 20,  
 		instructionFontSize,
 		DARKBROWN
 	);
